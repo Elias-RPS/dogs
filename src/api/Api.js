@@ -1,28 +1,27 @@
-import React from 'react';
-import PhotoGet from './endpoints/PhotoGet';
-import PhotoPost from './endpoints/PhotoPost';
-import TokenPost from './endpoints/TokenPost';
-import UserPost from './endpoints/UserPost';
+export const API_URL = 'https://dogsapi.origamid.dev/json';
 
-const Api = () => {
-  return (
-    <div>
-      <h2>USER POST</h2>
-      <UserPost />
+export function TOKEN_POST(body) {
+  return {
+    url: API_URL + '/jwt-auth/v1/token',
+    options: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
 
-      <h2>TOKEN POST</h2>
-      <TokenPost />
+      body: JSON.stringify(body),
+    },
+  };
+}
 
-      <h2>TOKEN POST</h2>
-      <TokenPost />
-
-      <h2>PHOTO POST</h2>
-      <PhotoPost />
-
-      <h2>PHOTO GET</h2>
-      <PhotoGet />
-    </div>
-  );
-};
-
-export default Api;
+export function USER_GET(token) {
+  return {
+    url: API_URL + '/api/user',
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    },
+  };
+}
